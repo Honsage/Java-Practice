@@ -1,8 +1,9 @@
 package domain.models;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class LibraryPosition {
+public class LibraryPosition implements Serializable {
     private Book book;
     private PositionStatus status;
     private String borrower;

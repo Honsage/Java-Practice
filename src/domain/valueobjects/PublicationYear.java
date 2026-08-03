@@ -2,9 +2,10 @@ package domain.valueobjects;
 
 import domain.exceptions.ValidationException;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public record PublicationYear(int value) {
+public record PublicationYear(int value) implements Serializable {
     public PublicationYear {
         if (!isValidPublicationYear(value)) {
             throw new ValidationException("Некорректный год публикации!");

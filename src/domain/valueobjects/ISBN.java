@@ -2,9 +2,10 @@ package domain.valueobjects;
 
 import domain.exceptions.ValidationException;
 
+import java.io.Serializable;
 import java.util.List;
 
-public record ISBN(String value) {
+public record ISBN(String value) implements Serializable {
     public ISBN {
         if (value == null || value.isBlank()) {
             throw new IllegalArgumentException("ISBN не должен быть пустым!");
@@ -16,10 +17,10 @@ public record ISBN(String value) {
             throw new ValidationException("Некорректный формат ISBN!");
         }
 
-        value = value.replaceAll("-", "");
+        value = normalize(value);
     }
 
-    private boolean isValidIsbn(String isbn) {
+    private static boolean isValidIsbn(String isbn) {
         boolean isDigit;
         int digitsCount = 0;
 
@@ -32,14 +33,27 @@ public record ISBN(String value) {
         return digitsCount == 13;
     }
 
+    private static String normalize(String isbn) {
+        return String.join("-", List.of(
+                isbn.substring(0, 3),
+                isbn.substring(3, 4),
+                isbn.substring(4, 8),
+                isbn.substring(8, 12),
+                isbn.substring(12, 13)
+        ));
+    }
+
     @Override
     public String toString() {
-        return String.join("-", List.of(
-                value.substring(0, 3),
-                value.substring(3, 4),
-                value.substring(4, 8),
-                value.substring(8, 12),
-                value.substring(12, 13)
-        ));
+        return value;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (this.getClass() != obj.getClass()) return false;
+        ISBN other = (ISBN) obj;
+        return this.value.equals(other.value);
     }
 }
