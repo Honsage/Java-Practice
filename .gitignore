@@ -10,3 +10,4 @@ out/
 
 # Temp and auxiliary files
 TEMP.md
+*.dat
