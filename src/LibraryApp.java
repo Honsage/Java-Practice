@@ -5,7 +5,6 @@ import domain.ports.PersistentStorage;
 import domain.repositories.LibraryRepository;
 import infrastructure.in_memory.LibraryRepositoryImpl;
 import infrastructure.persistence.LibraryFileStorage;
-import presentation.controllers.ConsoleController;
 import presentation.ui.ConsoleUI;
 
 import java.util.Collection;
@@ -21,10 +20,8 @@ public class LibraryApp {
         }
         LibraryRepository repository = new LibraryRepositoryImpl(libraryContent);
         LibraryService service = new LibraryService(repository);
-        ConsoleController controller = new ConsoleController(service);
-        ConsoleUI ui = new ConsoleUI(controller);
+        ConsoleUI ui = new ConsoleUI(service);
         ui.start();
-        // При окончании
         try {
             storage.dumpCollection(repository.findAll());
         } catch (PersistenceException e) {
