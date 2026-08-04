@@ -4,18 +4,15 @@ import domain.models.LibraryPosition;
 import domain.repositories.LibraryRepository;
 import domain.valueobjects.ISBN;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 public class LibraryRepositoryImpl implements LibraryRepository {
     private final List<LibraryPosition> libraryStock;
     private final HashMap<ISBN, LibraryPosition> isbnIndex;
 
-    public LibraryRepositoryImpl(List<LibraryPosition> libraryStock) {
-        this.libraryStock = Objects.requireNonNullElseGet(libraryStock, ArrayList::new);
+    public LibraryRepositoryImpl(Collection<LibraryPosition> libraryStock) {
+        this.libraryStock = (libraryStock == null) ?
+                new ArrayList<>() : new ArrayList<>(libraryStock);
         this.isbnIndex = new HashMap<>();
         buildIsbnIndex();
     }
