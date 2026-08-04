@@ -9,6 +9,7 @@ import java.util.Optional;
 
 public interface LibraryRepository {
     void save(LibraryPosition libraryPosition);
+    void update(LibraryPosition libraryPosition);
     void delete(ISBN isbn);
 
     Optional<LibraryPosition> findByIsbn(ISBN isbn);

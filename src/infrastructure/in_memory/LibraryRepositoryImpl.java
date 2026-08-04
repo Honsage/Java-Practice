@@ -28,9 +28,19 @@ public class LibraryRepositoryImpl implements LibraryRepository {
     }
 
     @Override
+    public void update(LibraryPosition newLibraryPosition) {
+        ISBN isbn = newLibraryPosition.getBook().getIsbn();
+        Optional<LibraryPosition> oldLibraryPosition = findByIsbn(isbn);
+        if (oldLibraryPosition.isEmpty()) throw new NoSuchElementException();
+        libraryStock.remove(oldLibraryPosition.get());
+        libraryStock.add(newLibraryPosition);
+        isbnIndex.put(isbn, newLibraryPosition);
+    }
+
+    @Override
     public void delete(ISBN isbn) {
         Optional<LibraryPosition> lp = findByIsbn(isbn);
-        if (lp.isEmpty()) return;
+        if (lp.isEmpty()) throw new NoSuchElementException();
         libraryStock.remove(lp.get());
         isbnIndex.remove(isbn);
     }
