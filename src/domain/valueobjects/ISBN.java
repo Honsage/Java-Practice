@@ -34,6 +34,7 @@ public record ISBN(String value) implements Serializable {
     }
 
     private static String normalize(String isbn) {
+        isbn = isbn.replaceAll("-", "");
         return String.join("-", List.of(
                 isbn.substring(0, 3),
                 isbn.substring(3, 4),
