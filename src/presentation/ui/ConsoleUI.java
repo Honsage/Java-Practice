@@ -132,7 +132,7 @@ public class ConsoleUI {
         try {
             service.removeBook(isbn);
             printText("|ok| Книга успешно удалена!");
-        } catch (BookNotFoundException e) {
+        } catch (BookNotFoundException | ValidationException e) {
             printText(e.getMessage());
         }
     }
@@ -168,7 +168,9 @@ public class ConsoleUI {
         try {
             service.borrowBook(isbn, borrower);
             printText("|ok| Книга успешно выдана!");
-        } catch (BookNotFoundException | BookNotAvailableException e) {
+        } catch (BookNotFoundException |
+                 BookNotAvailableException |
+                 ValidationException e) {
             printText(e.getMessage());
         }
     }
@@ -180,7 +182,7 @@ public class ConsoleUI {
         try {
             service.returnBook(isbn);
             printText("|ok| Книга успешно возвращена!");
-        } catch (BookNotFoundException e) {
+        } catch (BookNotFoundException | ValidationException e) {
             printText(e.getMessage());
         }
     }
@@ -204,8 +206,7 @@ public class ConsoleUI {
                         String.format("""
                                 Статус: Выдана
                                 Читатель: %s
-                                Дата выдачи: %s
-                                """,
+                                Дата выдачи: %s""",
                                 lp.getBorrower(),
                                 lp.getBorrowedAt().toString()
         ));
