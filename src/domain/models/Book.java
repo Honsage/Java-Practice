@@ -48,4 +48,18 @@ public class Book implements Serializable {
     public PublicationYear getPublicationYear() {
         return publicationYear;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (this.getClass() != obj.getClass()) return false;
+        Book other = (Book) obj;
+        return isbn.equals(other.isbn);
+    }
+
+    @Override
+    public int hashCode() {
+        return isbn.hashCode();
+    }
 }

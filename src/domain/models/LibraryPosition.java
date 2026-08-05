@@ -46,4 +46,18 @@ public class LibraryPosition implements Serializable {
     public LocalDate getBorrowedAt() {
         return borrowedAt;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (this.getClass() != obj.getClass()) return false;
+        LibraryPosition other = (LibraryPosition) obj;
+        return book.equals(other.book) && status == other.status;
+    }
+
+    @Override
+    public int hashCode() {
+        return book.hashCode() + status.hashCode();
+    }
 }
