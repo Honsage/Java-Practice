@@ -7,14 +7,13 @@ import domain.valueobjects.ISBN;
 import java.util.*;
 
 public class LibraryRepositoryImpl implements LibraryRepository {
-    private final List<LibraryPosition> libraryStock;
-    private final HashMap<ISBN, LibraryPosition> isbnIndex;
+
+    private final HashMap<ISBN, LibraryPosition> libraryStock;
 
     public LibraryRepositoryImpl(Collection<LibraryPosition> libraryStock) {
-        this.libraryStock = (libraryStock == null) ?
-                new ArrayList<>() : new ArrayList<>(libraryStock);
-        this.isbnIndex = new HashMap<>();
-        buildIsbnIndex();
+        this.libraryStock = new HashMap<>();
+        if (libraryStock != null)
+            fillStock(libraryStock);
     }
 
     public LibraryRepositoryImpl() {
@@ -23,8 +22,7 @@ public class LibraryRepositoryImpl implements LibraryRepository {
 
     @Override
     public void save(LibraryPosition libraryPosition) {
-        libraryStock.add(libraryPosition);
-        isbnIndex.put(libraryPosition.getBook().getIsbn(), libraryPosition);
+        libraryStock.put(libraryPosition.getBook().getIsbn(), libraryPosition);
     }
 
     @Override
@@ -32,35 +30,27 @@ public class LibraryRepositoryImpl implements LibraryRepository {
         ISBN isbn = newLibraryPosition.getBook().getIsbn();
         Optional<LibraryPosition> oldLibraryPosition = findByIsbn(isbn);
         if (oldLibraryPosition.isEmpty()) throw new NoSuchElementException();
-        libraryStock.remove(oldLibraryPosition.get());
-        libraryStock.add(newLibraryPosition);
-        isbnIndex.put(isbn, newLibraryPosition);
+        libraryStock.put(isbn, newLibraryPosition);
     }
 
     @Override
     public void delete(ISBN isbn) {
         Optional<LibraryPosition> lp = findByIsbn(isbn);
         if (lp.isEmpty()) throw new NoSuchElementException();
-        libraryStock.remove(lp.get());
-        isbnIndex.remove(isbn);
+        libraryStock.remove(isbn);
     }
 
     @Override
     public Optional<LibraryPosition> findByIsbn(ISBN isbn) {
-        if (isbnIndex != null)
-            return isbnIndex.containsKey(isbn)?
-                    Optional.of(isbnIndex.get(isbn)) :
-                    Optional.empty();
-        for (LibraryPosition lp : libraryStock) {
-            if (lp.getBook().getIsbn().equals(isbn)) return Optional.of(lp);
-        }
-        return Optional.empty();
+        return libraryStock.containsKey(isbn)?
+                Optional.of(libraryStock.get(isbn)) :
+                Optional.empty();
     }
 
     @Override
     public List<LibraryPosition> findByTitlePrefix(String titlePrefix) {
         List<LibraryPosition> result = new ArrayList<>();
-        for (LibraryPosition lp : libraryStock) {
+        for (LibraryPosition lp : libraryStock.values()) {
             if (lp.getBook().getTitle().toLowerCase().startsWith(titlePrefix.toLowerCase()))
                 result.add(lp);
         }
@@ -70,7 +60,7 @@ public class LibraryRepositoryImpl implements LibraryRepository {
     @Override
     public List<LibraryPosition> findByAuthor(String author) {
         List<LibraryPosition> result = new ArrayList<>();
-        for (LibraryPosition lp : libraryStock) {
+        for (LibraryPosition lp : libraryStock.values()) {
             if (lp.getBook().getAuthor().equalsIgnoreCase(author))
                 result.add(lp);
         }
@@ -79,12 +69,12 @@ public class LibraryRepositoryImpl implements LibraryRepository {
 
     @Override
     public List<LibraryPosition> findAll() {
-        return libraryStock;
+        return new ArrayList<>(libraryStock.values());
     }
 
-    private void buildIsbnIndex() {
-        for (LibraryPosition lp : libraryStock) {
-            isbnIndex.put(lp.getBook().getIsbn(), lp);
+    private void fillStock(Collection<LibraryPosition> collection) {
+        for (LibraryPosition lp : collection) {
+            libraryStock.put(lp.getBook().getIsbn(), lp);
         }
     }
 }
