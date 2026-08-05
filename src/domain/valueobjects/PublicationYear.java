@@ -7,7 +7,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public record PublicationYear(int value) implements Serializable {
-
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -18,8 +17,7 @@ public record PublicationYear(int value) implements Serializable {
     }
 
     private boolean isValidPublicationYear(int year) {
-        // TODO: Уточнить в предметной области валидные года публикации
-        return year >= 1600 && year <= LocalDateTime.now().getYear();
+        return year >= 0 && year <= LocalDateTime.now().getYear();
     }
 
     @Override

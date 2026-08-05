@@ -5,15 +5,17 @@ import domain.exceptions.ValidationException;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 public record ISBN(String value) implements Serializable {
-
     @Serial
     private static final long serialVersionUID = 1L;
 
     public ISBN {
-        if (value == null || value.isBlank()) {
-            throw new IllegalArgumentException("ISBN не должен быть пустым!");
+        Objects.requireNonNull(value, "ISBN не может быть null!");
+
+        if (value.isBlank()) {
+            throw new ValidationException("ISBN не должен быть пустым!");
         }
 
         value = value.trim();

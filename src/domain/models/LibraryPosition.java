@@ -1,11 +1,13 @@
 package domain.models;
 
+import domain.exceptions.ValidationException;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class LibraryPosition implements Serializable {
-
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -20,6 +22,12 @@ public class LibraryPosition implements Serializable {
             String borrower,
             LocalDate borrowedAt
     ) {
+        Objects.requireNonNull(book, "Нельзя создать библиотечную запись с null книгой!");
+        Objects.requireNonNull(borrower, "Читатель не должен быть null!");
+        Objects.requireNonNull(borrowedAt, "Дата выдачи не должна быть null!");
+        if (borrower.isBlank())
+            throw new ValidationException("Читатель не может быть пустым!");
+
         this.book = book;
         this.status = status;
         this.borrower = borrower;
