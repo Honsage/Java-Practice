@@ -2,10 +2,15 @@ package domain.valueobjects;
 
 import domain.exceptions.ValidationException;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
 public record ISBN(String value) implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     public ISBN {
         if (value == null || value.isBlank()) {
             throw new IllegalArgumentException("ISBN не должен быть пустым!");

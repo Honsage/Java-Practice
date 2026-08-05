@@ -1,9 +1,14 @@
 package domain.models;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 
 public class LibraryPosition implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private Book book;
     private PositionStatus status;
     private String borrower;
