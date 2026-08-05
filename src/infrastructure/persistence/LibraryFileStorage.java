@@ -19,7 +19,7 @@ public class LibraryFileStorage implements PersistentStorage<LibraryPosition> {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filepath))) {
             oos.writeObject(collection);
         } catch (IOException e) {
-            throw new PersistenceException("Не удалось сохранить данные библиотеки на диск");
+            throw new PersistenceException("Не удалось сохранить данные библиотеки на диск", e);
         }
     }
 
@@ -29,7 +29,7 @@ public class LibraryFileStorage implements PersistentStorage<LibraryPosition> {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filepath))) {
             collection = (Collection<LibraryPosition>) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            throw new PersistenceException("Не удалось загрузить данные библиотеки с диска");
+            throw new PersistenceException("Не удалось загрузить данные библиотеки с диска", e);
         }
         return collection;
     }
