@@ -1,4 +1,4 @@
-public class BasicThreadsPractice {
+public class ThreadsCreationPractice {
     public static void practice() throws InterruptedException {
         System.out.println(Thread.currentThread().getName());
 
