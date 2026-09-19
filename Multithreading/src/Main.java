@@ -7,6 +7,7 @@ public class Main {
 //        JoinPractice.practice();
 //        ThreadStatesPractice.practice();
 //        ThreadsInterruptionPractice.practice();
-        ThreadPriorityPractice.practice();
+//        ThreadPriorityPractice.practice();
+        DaemonThreadPractice.practice();
     }
 }
