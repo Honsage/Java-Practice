@@ -6,6 +6,7 @@ public class Main {
 //        SemaphorePractice.practice();
 //        JoinPractice.practice();
 //        ThreadStatesPractice.practice();
-        ThreadsInterruptionPractice.practice();
+//        ThreadsInterruptionPractice.practice();
+        ThreadPriorityPractice.practice();
     }
 }
