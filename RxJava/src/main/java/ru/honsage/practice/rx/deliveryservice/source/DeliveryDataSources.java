@@ -6,7 +6,6 @@ import ru.honsage.practice.rx.deliveryservice.dto.DeliveryEvent;
 import ru.honsage.practice.rx.deliveryservice.model.Darkstore;
 import ru.honsage.practice.rx.deliveryservice.model.Good;
 import ru.honsage.practice.rx.deliveryservice.model.Status;
-import ru.honsage.practice.rx.deliveryservice.util.Logger;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -36,8 +35,7 @@ public class DeliveryDataSources {
     public static Flowable<DeliveryEvent> intervalFlowable(long periodMs) {
         return Flowable.interval(periodMs, TimeUnit.MILLISECONDS, Schedulers.io())
                 .map(seq -> generateDelivery())
-                .onBackpressureBuffer(BACKPRESSURE_CAPACITY)
-                .doOnNext(Logger::logDelivery);
+                .onBackpressureBuffer(BACKPRESSURE_CAPACITY);
     }
 
     private static DeliveryEvent generateDelivery() {
