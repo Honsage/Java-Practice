@@ -6,11 +6,11 @@ This repo contains labs and projects that are written in order to practice devel
 
 ### Java Core
 
-_Study labs_ around java syntax, oop, exceptions, generics, collections (JCF).
+_Study labs_ around Java syntax, OOP, exceptions, generics, collections (JCF).
 
 ### Concurrency
 
-_Study labs_ around multithreading and asynchrony in java.
+_Study labs_ around multithreading and asynchrony in Java.
 
 ### NumericFilter
 
@@ -22,7 +22,11 @@ _Study labs_ to practice different testing approaches: TDD, BDD, ATDD, SDD with 
 
 ### RMI
 
-_Study lab_ to practice remote method invocation in java.
+_Study lab_ to practice remote method invocation in Java.
+
+### LibraryApp
+
+_Study project_ to practice custom exceptions, serialization and Onion Architecture. Represents simple CLI library management system.
 
 ### Maven Web App
 
