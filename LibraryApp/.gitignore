@@ -1,0 +1,13 @@
+# IntelliJ IDEA
+.idea/
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+*.iml
+
+# VS Code
+.vscode/
+
+# Temp and auxiliary files
+TEMP.md
+*.dat
