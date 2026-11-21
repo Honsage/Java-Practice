@@ -24,6 +24,14 @@ _Study labs_ to practice different testing approaches: TDD, BDD, ATDD, SDD with 
 
 _Study lab_ to practice remote method invocation in Java.
 
+### RxJava
+
+_Study lab_ to practice reactive data processing in Java using rxjava library.
+
+### WebFlux
+
+_Study lab_ to practice creation of non-blocking HTTP API with Spring WebFlux. 
+
 ### LibraryApp
 
 _Study project_ to practice custom exceptions, serialization and Onion Architecture. Represents simple CLI library management system.
