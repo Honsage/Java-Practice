@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: WebFlux
+
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG
+        http: DEBUG
+    tools:
+      jackson: DEBUG
